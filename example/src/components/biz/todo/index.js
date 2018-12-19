@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import './style.css';
+import "./style.css";
 
 class Todo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      value: '', // 用户输入的值
+      value: "" // 用户输入的值
     };
   }
 
@@ -26,25 +26,25 @@ class Todo extends React.PureComponent {
             onChange={event => {
               this.setState({ value: event.target.value });
             }}
-          />
+          />{" "}
           <button
             onClick={() => {
-              value && dispatch({ type: 'todo/add', payload: { todo: value } });
+              value && dispatch({ type: "todo/add", payload: { todo: value } });
             }}
           >
             add
-          </button>
+          </button>{" "}
           <button
             onClick={() => {
               value &&
                 dispatch({
-                  type: 'todo/throttleAdd',
-                  payload: { todo: value },
+                  type: "todo/throttleAdd",
+                  payload: { todo: value }
                 });
             }}
           >
-            throttle 3s add
-          </button>
+            throttle 6s add
+          </button>{" "}
         </div>
         <ul>
           {list.map((item, index) => {
@@ -58,14 +58,14 @@ class Todo extends React.PureComponent {
 
 Todo.propTypes = {
   todo: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired
 };
 
 Todo.defaultProps = {};
 
 const mapStateToProps = state => {
   return {
-    todo: state.todo,
+    todo: state.todo
   };
 };
 
