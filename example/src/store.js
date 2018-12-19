@@ -5,6 +5,7 @@ export default createStore(
   models,
   {},
   {
-    enableDevTools: true
+    enableDevToolsInDev: true,
+    enableDevToolsInProd: false
   }
 );

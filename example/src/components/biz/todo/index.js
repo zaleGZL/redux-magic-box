@@ -45,10 +45,40 @@ class Todo extends React.PureComponent {
           >
             throttle 6s add
           </button>{" "}
+          <button
+            onClick={() => {
+              value &&
+                dispatch({
+                  type: "todo/latestAdd",
+                  payload: { todo: value }
+                });
+            }}
+          >
+            use latest add (5s)
+          </button>{" "}
+          <button
+            onClick={() => {
+              dispatch({ type: "todo/clearAll" });
+            }}
+          >
+            clear all
+          </button>
         </div>
         <ul>
           {list.map((item, index) => {
-            return <li key={index}>{item}</li>;
+            return (
+              <li key={index}>
+                {item}{" "}
+                <span
+                  className="todo__delete-description"
+                  onClick={() => {
+                    dispatch({ type: "todo/delete", payload: { index } });
+                  }}
+                >
+                  delete
+                </span>
+              </li>
+            );
           })}
         </ul>
       </div>

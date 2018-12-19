@@ -11,7 +11,8 @@ import { isType } from './utils';
  * @param {Object} config 配置
  * @param {Array} config.middlewares 中间件
  * @param {Array} config.enhancers 增强器
- * @param {Boolean} config.enableDevTools 是否在开发环境下使用 redux 浏览器开发者工具
+ * @param {Boolean} config.enableDevToolsInDev 是否在开发环境下使用 redux 浏览器开发者工具
+ * @param {Boolean} config.enableDevToolsInProd 是否在生产环境下使用 redux 浏览器开发者工具
  */
 export default function createStore(models = [], initState = {}, config = {}) {
   // 参数检查
@@ -26,10 +27,21 @@ export default function createStore(models = [], initState = {}, config = {}) {
   }
 
   const sagaMiddleware = createSagaMiddleware();
-  let enableDevTools = config.enableDevTools === false ? false : true;
-  const composeEnhancers = enableDevTools
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-    : compose;
+  let composeEnhancers = compose;
+  const enableDevToolsInDev =
+    config.enableDevToolsInDev === false ? false : true;
+  const enableDevToolsInProd =
+    config.enableDevToolsInProd === true ? true : false;
+
+  if (process.env.NODE_ENV === `development`) {
+    if (enableDevToolsInDev) {
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    }
+  } else {
+    if (enableDevToolsInProd) {
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    }
+  }
 
   // reducer
   const reducer = createReducers(models);
