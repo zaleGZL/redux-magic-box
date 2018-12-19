@@ -32,7 +32,8 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
  * @param {Object} config 配置
  * @param {Array} config.middlewares 中间件
  * @param {Array} config.enhancers 增强器
- * @param {Boolean} config.enableDevTools 是否在开发环境下使用 redux 浏览器开发者工具
+ * @param {Boolean} config.enableDevToolsInDev 是否在开发环境下使用 redux 浏览器开发者工具
+ * @param {Boolean} config.enableDevToolsInProd 是否在生产环境下使用 redux 浏览器开发者工具
  */
 function createStore() {
   var models = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -53,8 +54,20 @@ function createStore() {
   }
 
   var sagaMiddleware = (0, _reduxSaga.default)();
-  var enableDevTools = config.enableDevTools === false ? false : true;
-  var composeEnhancers = enableDevTools ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose : _redux.compose; // reducer
+  var composeEnhancers = _redux.compose;
+  var enableDevToolsInDev = config.enableDevToolsInDev === false ? false : true;
+  var enableDevToolsInProd = config.enableDevToolsInProd === true ? true : false;
+
+  if (process.env.NODE_ENV === "development") {
+    if (enableDevToolsInDev) {
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose;
+    }
+  } else {
+    if (enableDevToolsInProd) {
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || _redux.compose;
+    }
+  } // reducer
+
 
   var reducer = (0, _createReducers.default)(models); // sagas
 

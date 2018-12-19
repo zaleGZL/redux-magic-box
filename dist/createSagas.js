@@ -283,7 +283,7 @@ function createSagas() {
                         case 6:
                           _context6.prev = 6;
                           _context6.t0 = _context6["catch"](1);
-                          console.log(_context6.t0);
+                          console.error(_context6.t0);
 
                         case 9:
                           _context6.next = 0;

@@ -138,7 +138,7 @@ export default function createSagas(models = []) {
             try {
               yield sagaEffects.call(saga);
             } catch (error) {
-              console.log(error);
+              console.error(error);
             }
           }
         })

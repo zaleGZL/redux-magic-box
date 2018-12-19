@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import "./style.css";
+import './style.css';
 
 class Todo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      value: "" // 用户输入的值
+      value: '', // 用户输入的值
     };
   }
 
@@ -26,53 +26,67 @@ class Todo extends React.PureComponent {
             onChange={event => {
               this.setState({ value: event.target.value });
             }}
-          />{" "}
+          />{' '}
           <button
             onClick={() => {
-              value && dispatch({ type: "todo/add", payload: { todo: value } });
+              value && dispatch({ type: 'todo/add', payload: { todo: value } });
             }}
           >
             add
-          </button>{" "}
+          </button>{' '}
           <button
             onClick={() => {
               value &&
                 dispatch({
-                  type: "todo/throttleAdd",
-                  payload: { todo: value }
+                  type: 'todo/throttleAdd',
+                  payload: { todo: value },
                 });
             }}
           >
             throttle 6s add
-          </button>{" "}
+          </button>{' '}
           <button
             onClick={() => {
               value &&
                 dispatch({
-                  type: "todo/latestAdd",
-                  payload: { todo: value }
+                  type: 'todo/latestAdd',
+                  payload: { todo: value },
                 });
             }}
           >
             use latest add (5s)
-          </button>{" "}
+          </button>{' '}
           <button
             onClick={() => {
-              dispatch({ type: "todo/clearAll" });
+              dispatch({ type: 'todo/clearAll' });
             }}
           >
             clear all
-          </button>
+          </button>{' '}
+          <button
+            onClick={() => {
+              dispatch({ type: 'todo/addAndThrowError' });
+            }}
+          >
+            add and throw error(redux-magic-box catch)
+          </button>{' '}
+          <button
+            onClick={() => {
+              dispatch({ type: 'todo/addAndCatchError' });
+            }}
+          >
+            add and throw error(use catch)
+          </button>{' '}
         </div>
         <ul>
           {list.map((item, index) => {
             return (
               <li key={index}>
-                {item}{" "}
+                {item}{' '}
                 <span
                   className="todo__delete-description"
                   onClick={() => {
-                    dispatch({ type: "todo/delete", payload: { index } });
+                    dispatch({ type: 'todo/delete', payload: { index } });
                   }}
                 >
                   delete
@@ -88,14 +102,14 @@ class Todo extends React.PureComponent {
 
 Todo.propTypes = {
   todo: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
 };
 
 Todo.defaultProps = {};
 
 const mapStateToProps = state => {
   return {
-    todo: state.todo
+    todo: state.todo,
   };
 };
 
