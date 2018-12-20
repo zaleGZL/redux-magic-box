@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import createNextState from 'immer';
 import { isType } from './utils';
 import { NAMESPACE_SEP } from './constants';
 
@@ -15,7 +16,7 @@ export default function createReducers(models = []) {
   for (let model of models) {
     const { namespace, reducers = {}, state: modelInitState = null } = model;
     // 该 model 的 reducers
-    const modelReducers = [];
+    const modelReducers = {};
 
     // 检测 namespace 是否有定义
     if (!namespace) {
@@ -35,22 +36,20 @@ export default function createReducers(models = []) {
     // 获取定义的 reducer
     Object.keys(reducers).forEach(name => {
       const reducerName = `${namespace}${NAMESPACE_SEP}${name}`;
-      const reducer = reducers[name];
-      modelReducers.push({
-        type: reducerName,
-        reducer,
-      });
+      modelReducers[reducerName] = reducers[name];
     });
 
     // 生成该 model 的 根 reducer
     const modelRootReducer = (state = modelInitState, action) => {
-      return modelReducers.reduce((prevState, { type, reducer }) => {
-        if (action.type === type) {
-          return reducer(prevState, action);
-        } else {
-          return prevState;
+      return createNextState(state, draft => {
+        const caseReducer = modelReducers[action.type];
+
+        if (caseReducer) {
+          return caseReducer(draft, action);
         }
-      }, state);
+
+        return draft;
+      });
     };
 
     rootReducers[namespace] = modelRootReducer;

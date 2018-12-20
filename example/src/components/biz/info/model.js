@@ -3,16 +3,10 @@ export default {
   state: {},
   reducers: {
     setName: (state, { payload: { name } }) => {
-      return {
-        ...state,
-        name,
-      };
+      state.name = name;
     },
     setAge: (state, { payload: { age } }) => {
-      return {
-        ...state,
-        age,
-      };
+      state.age = age;
     },
   },
 };

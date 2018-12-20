@@ -4467,6 +4467,11 @@ immer@1.7.2:
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.7.2.tgz#a51e9723c50b27e132f6566facbec1c85fc69547"
   integrity sha512-4Urocwu9+XLDJw4Tc6ZCg7APVjjLInCFvO4TwGsAYV5zT6YYSor14dsZR0+0tHlDIN92cFUOq+i7fC00G5vTxA==
 
+immer@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-1.9.3.tgz#e88f8cbea730d2cde0f5e7e763000a8608bccdae"
+  integrity sha512-bUyz3fOHGn82V7h4oVgJGmFglZt53JWwSyVNAT4sO0d7IovHLwLuHbh14uYKY0tewFoDcEdiQW7HuL0NsRVziw==
+
 import-cwd@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/import-cwd/-/import-cwd-2.1.0.tgz#aa6cf36e722761285cb371ec6519f53e2435b0a9"
@@ -7896,11 +7901,12 @@ recursive-readdir@2.2.2:
   dependencies:
     minimatch "3.0.4"
 
-redux-magic-box@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/redux-magic-box/-/redux-magic-box-0.0.4.tgz#0190ea87b69bd0a6cf2c85def2b8f62308c2aaad"
-  integrity sha512-DwyDarLcQvK38BVpZSfAxNKYpty5JxZIZCLvlatVrJ+xYFtChAsGkw2s1wAwEM6hqkSBqzV85R+iF6YfmLe1yA==
+redux-magic-box@0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/redux-magic-box/-/redux-magic-box-0.0.8.tgz#ae4138170ed79a0e0ebd82a0fb27c36eecf313b3"
+  integrity sha512-Na2clJ1SGQ9Ef6QlCAvXh7izY/2tm+fDZNKIHxf+Mbio2ZP0Ht/jaxHUM2nvpLU66m+Vs1Rmgl8jlizPRFeDHw==
   dependencies:
+    immer "^1.9.3"
     redux "^4.0.1"
     redux-saga "^0.16.2"
     regenerator-runtime "^0.13.1"

@@ -7,9 +7,13 @@ exports.default = createReducers;
 
 var _redux = require("redux");
 
+var _immer = _interopRequireDefault(require("immer"));
+
 var _utils = require("./utils");
 
 var _constants = require("./constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * 创建 reducer
@@ -34,7 +38,7 @@ function createReducers() {
           _model$state = model.state,
           modelInitState = _model$state === void 0 ? null : _model$state; // 该 model 的 reducers
 
-      var modelReducers = []; // 检测 namespace 是否有定义
+      var modelReducers = {}; // 检测 namespace 是否有定义
 
       if (!namespace) {
         throw new Error('namespace 未定义或为空字符串.');
@@ -53,26 +57,21 @@ function createReducers() {
 
       Object.keys(reducers).forEach(function (name) {
         var reducerName = "".concat(namespace).concat(_constants.NAMESPACE_SEP).concat(name);
-        var reducer = reducers[name];
-        modelReducers.push({
-          type: reducerName,
-          reducer: reducer
-        });
+        modelReducers[reducerName] = reducers[name];
       }); // 生成该 model 的 根 reducer
 
       var modelRootReducer = function modelRootReducer() {
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : modelInitState;
         var action = arguments.length > 1 ? arguments[1] : undefined;
-        return modelReducers.reduce(function (prevState, _ref) {
-          var type = _ref.type,
-              reducer = _ref.reducer;
+        return (0, _immer.default)(state, function (draft) {
+          var caseReducer = modelReducers[action.type];
 
-          if (action.type === type) {
-            return reducer(prevState, action);
-          } else {
-            return prevState;
+          if (caseReducer) {
+            return caseReducer(draft, action);
           }
-        }, state);
+
+          return draft;
+        });
       };
 
       rootReducers[namespace] = modelRootReducer;

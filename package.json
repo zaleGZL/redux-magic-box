@@ -1,11 +1,12 @@
 {
   "name": "redux-magic-box",
-  "version": "0.0.4",
+  "version": "0.0.8",
   "description": "redux-magic-box",
   "main": "dist/index.js",
   "scripts": {
     "test": "test -demo",
-    "build": "babel src --out-dir dist"
+    "build": "babel src --out-dir dist",
+    "put": "npm run build && npm publish"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,7 @@
     "@babel/preset-env": "^7.2.0"
   },
   "dependencies": {
+    "immer": "^1.9.3",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
     "regenerator-runtime": "^0.13.1"
