@@ -1,6 +1,6 @@
 {
   "name": "redux-magic-box",
-  "version": "0.0.8",
+  "version": "0.0.13",
   "description": "redux-magic-box",
   "main": "dist/index.js",
   "scripts": {

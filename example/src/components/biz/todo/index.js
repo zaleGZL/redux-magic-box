@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createDispatcher } from 'redux-magic-box';
 
 import './style.css';
 
@@ -10,9 +11,11 @@ class Todo extends React.PureComponent {
     this.state = {
       value: '', // 用户输入的值
     };
+    this.action = createDispatcher(props.dispatch);
   }
 
   render() {
+    const { action } = this;
     const { todo, dispatch } = this.props;
     const { value } = this.state;
     const { list } = todo;
@@ -29,7 +32,8 @@ class Todo extends React.PureComponent {
           />{' '}
           <button
             onClick={() => {
-              value && dispatch({ type: 'todo/add', payload: { todo: value } });
+              value && action('todo/add', { todo: value }); // equal to next line
+              // value && dispatch({ type: 'todo/add', payload: { todo: value } });
             }}
           >
             add
@@ -76,6 +80,16 @@ class Todo extends React.PureComponent {
             }}
           >
             add and throw error(use catch)
+          </button>{' '}
+          <button
+            onClick={() => {
+              value &&
+                action('todo/addWithPromise', { todo: value }, true).then(() => {
+                  console.log('addWithPromise success');
+                });
+            }}
+          >
+            add with promise
           </button>{' '}
         </div>
         <ul>

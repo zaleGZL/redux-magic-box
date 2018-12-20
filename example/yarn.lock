@@ -7901,10 +7901,10 @@ recursive-readdir@2.2.2:
   dependencies:
     minimatch "3.0.4"
 
-redux-magic-box@0.0.8:
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/redux-magic-box/-/redux-magic-box-0.0.8.tgz#ae4138170ed79a0e0ebd82a0fb27c36eecf313b3"
-  integrity sha512-Na2clJ1SGQ9Ef6QlCAvXh7izY/2tm+fDZNKIHxf+Mbio2ZP0Ht/jaxHUM2nvpLU66m+Vs1Rmgl8jlizPRFeDHw==
+redux-magic-box@0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/redux-magic-box/-/redux-magic-box-0.0.13.tgz#bbbc53d01fcb059720542b0626bf7991d6e23bab"
+  integrity sha512-yW2yWK+xHLOACO2qr6UzS8hA6lvwgxVd6kvVvrtfO8duV7F+jDYthMqz3cI6pNiaQJtKnmMFuX7GSalXv00L6Q==
   dependencies:
     immer "^1.9.3"
     redux "^4.0.1"

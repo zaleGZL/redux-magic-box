@@ -79,5 +79,10 @@ export default {
         console.log(error);
       }
     },
+    *addWithPromise(action, { dispatch }) {
+      yield dispatch('todo/add', { todo: 'addWithPromise' }); // equal to next line
+      // yield put({ type: 'todo/add', payload: { todo: 'addWithPromise' } });
+      action.resolve && action.resolve();
+    },
   },
 };
